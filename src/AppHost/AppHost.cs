@@ -17,11 +17,21 @@ var migration = builder.AddDotnetProject(
     .WaitFor(postgresdb);
 
 // + Api:
-builder.AddDotnetProject("api", "../Api/Api.csproj")
+var api = builder.AddDotnetProject("api", "../Api/Api.csproj")
     .WithReference(postgresdb)
     .WithReference(redis)
     .WithReference(migration)
-    .WaitForCompletion(migration);
+    .WaitFor(postgresdb);
+    // TODO: Consider waiting for migration completion if necessary
+    // .WaitForCompletion(migration);
+
+// + JavaScript (Vue + Vite):
+builder.AddViteApp("app", "../App")
+    .WithPnpm()
+    .WithRunScript("dev")
+    .WithReference(api)
+    .WaitFor(api)
+    .WithExternalHttpEndpoints();
 
 var app = builder.Build();
 

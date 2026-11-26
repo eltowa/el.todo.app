@@ -49,4 +49,12 @@ public class AppHostTests
         Assert.NotNull(api);
         Assert.NotNull(postgresDb);
     }
+
+    [Fact]
+    public async Task AppHostContainsVueAppResource()
+    {
+        var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
+        var app = builder.Resources.FirstOrDefault(r => r.Name == "app");
+        Assert.NotNull(app);
+    }
 }
