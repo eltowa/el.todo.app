@@ -1,0 +1,32 @@
+<Project>
+
+  <!-- ========================================================================
+       Repository / SourceLink metadata
+       Enables deterministic builds and source linking when publishing packages.
+       ======================================================================== -->
+  <PropertyGroup>
+    <RepositoryUrl>https://github.com/eltowa/el.todo.app</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <DeterministicSourcePaths>true</DeterministicSourcePaths>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <PublicRelease Condition="'$(Configuration)' == 'Release'">true</PublicRelease>
+  </PropertyGroup>
+
+  <!-- ========================================================================
+       Output / artifact layout
+       Keeps bin/obj out of project folders; artifacts live under /artifacts.
+       ======================================================================== -->
+  <PropertyGroup>
+    <BaseOutputPath>$(MSBuildThisFileDirectory)artifacts\</BaseOutputPath>
+    <PackageOutputPath>$(BaseOutputPath)packages\$(Configuration)\</PackageOutputPath>
+  </PropertyGroup>
+
+  <!-- ========================================================================
+       LogBuildInfo — runs after every project builds.
+       ======================================================================== -->
+  <Target Name="LogBuildInfo" AfterTargets="Build">
+    <Message Importance="high"
+      Text="Built $(MSBuildProjectName) for $(TargetFramework) $(Configuration) -> $(TargetPath)" />
+  </Target>
+
+</Project>
