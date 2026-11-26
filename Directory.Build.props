@@ -8,5 +8,6 @@
     <AnalysisMode>Recommended</AnalysisMode>
     <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
     <RestoreLockedMode>true</RestoreLockedMode>
+    <NoWarn>NU1902;NU1903</NoWarn>
   </PropertyGroup>
 </Project>

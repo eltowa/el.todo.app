@@ -39,9 +39,10 @@ public class DatabaseResetHelper : IAsyncDisposable
         if (_disposed) return;
         _disposed = true;
         await ResetAsync();
+        GC.SuppressFinalize(this);
     }
 
-    private static DbConnection CreateDbConnection(string connectionString)
+    private static NpgsqlConnection CreateDbConnection(string connectionString)
     {
         // Respawn works with any DbConnection; Npgsql is used for PostgreSQL
         return new NpgsqlConnection(connectionString);

@@ -8,7 +8,7 @@ namespace Todo.AppHost.Tests;
 public class AppHostTests
 {
     [Fact]
-    public async Task AppHost_ContainsPostgresServerResource()
+    public async Task AppHostContainsPostgresServerResource()
     {
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
         var postgres = builder.Resources.FirstOrDefault(r => r.Name == "postgres");
@@ -16,7 +16,7 @@ public class AppHostTests
     }
 
     [Fact]
-    public async Task AppHost_ContainsPostgresDatabaseResource()
+    public async Task AppHostContainsPostgresDatabaseResource()
     {
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
         var database = builder.Resources.FirstOrDefault(r => r.Name == "postgresdb");
@@ -24,7 +24,7 @@ public class AppHostTests
     }
 
     [Fact]
-    public async Task AppHost_ContainsApiProjectResource()
+    public async Task AppHostContainsApiProjectResource()
     {
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
         var api = builder.Resources.FirstOrDefault(r => r.Name == "api");
@@ -32,7 +32,7 @@ public class AppHostTests
     }
 
     [Fact]
-    public async Task AppHost_ContainsMigrationProjectResource()
+    public async Task AppHostContainsMigrationProjectResource()
     {
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
         var migration = builder.Resources.FirstOrDefault(r => r.Name == "migration");
@@ -40,7 +40,7 @@ public class AppHostTests
     }
 
     [Fact]
-    public async Task AppHost_ApiAndDatabaseResourcesExist()
+    public async Task AppHostApiAndDatabaseResourcesExist()
     {
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
         var api = builder.Resources.FirstOrDefault(r => r.Name == "api");

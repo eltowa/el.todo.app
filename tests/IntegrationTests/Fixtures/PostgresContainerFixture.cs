@@ -15,12 +15,15 @@ public class PostgresContainerFixture : IAsyncLifetime
 
     public PostgresContainerFixture()
     {
+        #pragma warning disable CS0618 // Type or member is obsolete (Testcontainers builder ctor)
         _postgres = new PostgreSqlBuilder()
+            .WithImage("postgres:15-alpine")
             .WithDatabase("tododb")
             .WithUsername("postgres")
             .WithPassword("postgres")
             .WithPortBinding(5432, true)
             .Build();
+        #pragma warning restore CS0618
     }
 
     /// <summary>
@@ -40,13 +43,17 @@ public class PostgresContainerFixture : IAsyncLifetime
 
     public ValueTask InitializeAsync() => new(_postgres.StartAsync());
 
-    public ValueTask DisposeAsync() => new(_postgres.StopAsync());
+    public async ValueTask DisposeAsync()
+    {
+        await _postgres.StopAsync();
+        GC.SuppressFinalize(this);
+    }
 }
 
 /// <summary>
 /// Collection definition that ensures PostgreSQL container is shared across all tests in this collection.
 /// </summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1014:")]
-public class PostgresContainerCollection : ICollectionFixture<PostgresContainerFixture>
+public class PostgresContainerFixtureDefinition : ICollectionFixture<PostgresContainerFixture>
 {
 }

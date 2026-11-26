@@ -20,7 +20,7 @@ namespace Todo.IntegrationTests;
 public class ApiIntegrationTests
 {
     [Fact]
-    public async Task AppHost_CanBuildWithoutErrors()
+    public async Task AppHostCanBuildWithoutErrors()
     {
         // Arrange & Act
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
@@ -31,7 +31,7 @@ public class ApiIntegrationTests
     }
 
     [Fact]
-    public async Task AppHost_ApiProjectIsConfigured()
+    public async Task AppHostApiProjectIsConfigured()
     {
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
         var api = System.Linq.Enumerable.FirstOrDefault(builder.Resources, r => r.Name == "api");
@@ -40,7 +40,7 @@ public class ApiIntegrationTests
     }
 
     [Fact]
-    public async Task AppHost_PostgresDatabaseIsConfigured()
+    public async Task AppHostPostgresDatabaseIsConfigured()
     {
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
         var postgresDb = System.Linq.Enumerable.FirstOrDefault(builder.Resources, r => r.Name == "postgresdb");
@@ -49,7 +49,7 @@ public class ApiIntegrationTests
     }
 
     [Fact]
-    public async Task AppHost_RedisCacheIsConfigured()
+    public async Task AppHostRedisCacheIsConfigured()
     {
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
         var redis = System.Linq.Enumerable.FirstOrDefault(builder.Resources, r => r.Name == "redis");
@@ -58,7 +58,7 @@ public class ApiIntegrationTests
     }
 
     [Fact]
-    public async Task AppHost_ApiAndDatabaseResourcesExist()
+    public async Task AppHostApiAndDatabaseResourcesExist()
     {
         var builder = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AppHost>(TestContext.Current.CancellationToken);
         var api = System.Linq.Enumerable.FirstOrDefault(builder.Resources, r => r.Name == "api");
@@ -74,7 +74,7 @@ public class ApiIntegrationTests
     /// If no container runtime (Podman or Docker) is detected, the test is skipped.
     /// </summary>
     [Fact]
-    public async Task Get_RootEndpoint_ReturnsHelloWorld_WhenContainerRuntimeAvailable()
+    public async Task GetRootEndpointReturnsHelloWorldWhenContainerRuntimeAvailable()
     {
         // Check container runtime availability - skip if not available
         var detectedRuntime = IntegrationTestFactory.GetDetectedRuntime();
@@ -95,12 +95,12 @@ public class ApiIntegrationTests
         using var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5000") };
 
         // Act
-        var response = await httpClient.GetAsync("/");
+        var response = await httpClient.GetAsync("/", TestContext.Current.CancellationToken);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        var content = await response.Content.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
         content.Should().Contain("Hello World");
     }
 
@@ -109,7 +109,7 @@ public class ApiIntegrationTests
     /// If no container runtime is available, the test returns early (skipped).
     /// </summary>
     [Fact]
-    public async Task PostgresContainer_CanStartViaTestcontainers()
+    public async Task PostgresContainerCanStartViaTestcontainers()
     {
         // Check container runtime availability - skip if not available
         var detectedRuntime = IntegrationTestFactory.GetDetectedRuntime();
@@ -140,7 +140,7 @@ public class ApiIntegrationTests
     /// If no container runtime is available, the test returns early (skipped).
     /// </summary>
     [Fact]
-    public async Task RedisContainer_CanStartViaTestcontainers()
+    public async Task RedisContainerCanStartViaTestcontainers()
     {
         // Check container runtime availability - skip if not available
         var detectedRuntime = IntegrationTestFactory.GetDetectedRuntime();

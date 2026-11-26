@@ -15,9 +15,12 @@ public class RedisContainerFixture : IAsyncLifetime
 
     public RedisContainerFixture()
     {
+        #pragma warning disable CS0618 // Type or member is obsolete (Testcontainers builder ctor)
         _redis = new RedisBuilder()
+            .WithImage("redis:7-alpine")
             .WithPortBinding(6379, true)
             .Build();
+        #pragma warning restore CS0618
     }
 
     /// <summary>
@@ -37,12 +40,16 @@ public class RedisContainerFixture : IAsyncLifetime
 
     public ValueTask InitializeAsync() => new(_redis.StartAsync());
 
-    public ValueTask DisposeAsync() => new(_redis.StopAsync());
+    public async ValueTask DisposeAsync()
+    {
+        await _redis.StopAsync();
+        GC.SuppressFinalize(this);
+    }
 }
 
 /// <summary>
 /// Collection definition that ensures Redis container is shared across all tests in this collection.
 /// </summary>
-public class RedisContainerCollection : ICollectionFixture<RedisContainerFixture>
+public class RedisContainerFixtureDefinition : ICollectionFixture<RedisContainerFixture>
 {
 }

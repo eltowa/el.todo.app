@@ -5,7 +5,7 @@ namespace Todo.UnitTests;
 public class HelloWorldTests
 {
     [Fact]
-    public void RootEndpoint_ReturnsHelloWorld()
+    public void RootEndpointReturnsHelloWorld()
     {
         // Arrange
         const string expected = "Hello World!";
@@ -18,7 +18,7 @@ public class HelloWorldTests
     }
 
     [Fact]
-    public void RootEndpoint_ReturnsNonEmptyString()
+    public void RootEndpointReturnsNonEmptyString()
     {
         // Act
         var result = GetGreeting();
