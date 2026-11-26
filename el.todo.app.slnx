@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Api/Api.csproj" />
+    <Project Path="src/AppHost/AppHost.csproj" />
+    <Project Path="src/Migration/Migration.csproj" />
+    <Project Path="src/ServiceDefaults/ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/UnitTests/Todo.UnitTests.csproj" />
+    <Project Path="tests/IntegrationTests/Todo.IntegrationTests.csproj" />
+    <Project Path="tests/AppHostTests/AppHost.Tests.csproj" />
+  </Folder>
+</Solution>
