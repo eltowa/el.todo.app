@@ -34,6 +34,8 @@
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
     <PackageVersion Include="Microsoft.IdentityModel.Tokens" Version="8.3.0" />
 
+    <!-- Request handling: Manual (no Carter, Mapster, FluentValidation, FluentResults) -->
+
     <!-- External login providers -->
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.Facebook" Version="10.0.0" />
